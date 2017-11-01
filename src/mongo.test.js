@@ -12,7 +12,7 @@ describe('#aggregateIdPrefixes', () => {
   });
 
   it('should use proper aggregation pipeline', async() => {
-    await aggregateIdPrefixes(dbCollection, {a: 1}, 3);
+    await aggregateIdPrefixes(dbCollection, {a: 1}, 2);
 
     expect(aggregateMock).toBeCalledWith([
       {$match: {a: 1}},
@@ -27,7 +27,7 @@ describe('#aggregateIdPrefixes', () => {
 
   it('should return result of aggregation', async() => {
     toArrayMock.mockReturnValueOnce([1, 2, 3]);
-    const idPrefixes = await aggregateIdPrefixes(dbCollection, {a: 1}, 3);
+    const idPrefixes = await aggregateIdPrefixes(dbCollection, {a: 1}, 2);
 
     expect(idPrefixes).toEqual([1, 2, 3]);
   });

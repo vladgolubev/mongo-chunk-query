@@ -7,7 +7,7 @@ export function aggregateIdPrefixes(dbCollection, selector, prefixLength) {
       $group: {
         _id: {
           $toLower: {
-            $substr: ['$_id', 0, prefixLength]
+            $substr: ['$_id', 0, prefixLength + 1]
           }
         },
         count: {
