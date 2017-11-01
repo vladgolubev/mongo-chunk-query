@@ -1,7 +1,8 @@
 import {aggregateIdPrefixes, getCountBySelector} from './mongo';
+import {getSelectorWithIdPrefix, collapseSelectorsUpToChunkSize} from './selectors';
 
 export async function chunkQuery(dbCollection, selector, chunkSize) {
-  const countBySelector = await getCountBySelector(selector);
+  const countBySelector = await getCountBySelector(dbCollection, selector);
 
   if (countBySelector <= chunkSize) {
     return [selector];
@@ -13,7 +14,7 @@ export async function chunkQuery(dbCollection, selector, chunkSize) {
 async function chunkChildQuery(dbCollection, selector, chunkSize, idPrefix) {
   const selectorWithIdPrefix = getSelectorWithIdPrefix(selector, idPrefix);
   const idCounts = await aggregateIdPrefixes(dbCollection, selectorWithIdPrefix, idPrefix.length);
-  const idCountsBelowChunkSize = idCounts.filter(({count}) => count <= chunkSize);
+  const idCountsBelowChunkSize = collapseSelectorsUpToChunkSize(idCounts.filter(({count}) => count <= chunkSize), chunkSize);
   const idCountsAboveChunkSize = idCounts.filter(({count}) => count > chunkSize);
   const resultChunks = [];
 
@@ -27,15 +28,4 @@ async function chunkChildQuery(dbCollection, selector, chunkSize, idPrefix) {
   }));
 
   return resultChunks;
-}
-
-function getSelectorWithIdPrefix(selector, idPrefix) {
-  if (!idPrefix) {
-    return selector;
-  }
-
-  return {
-    ...selector,
-    _id: {$regex: `^${idPrefix}`, $options: 'i'}
-  };
 }

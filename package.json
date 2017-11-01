@@ -5,6 +5,9 @@
   "author": "Vlad Holubiev",
   "license": "MIT",
   "private": true,
+  "files": [
+    "lib/"
+  ],
   "scripts": {
     "build": "babel src --out-dir lib --ignore test.js,__mocks__ --copy-files",
     "lint": "eslint src --fix --format=node_modules/eslint-formatter-pretty",
@@ -15,7 +18,8 @@
     "mongodb": "2.x.x"
   },
   "dependencies": {
-    "babel-runtime": "^6.26.0"
+    "babel-runtime": "^6.26.0",
+    "lodash": "^4.17.4"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
