@@ -20,3 +20,7 @@ export function aggregateIdPrefixes(dbCollection, selector, prefixLength) {
 
   return dbCollection.aggregate(pipeline, options).toArray();
 }
+
+export function getCountBySelector(dbCollection, selector) {
+  return dbCollection.find(selector).count();
+}

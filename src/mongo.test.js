@@ -1,4 +1,4 @@
-import {aggregateIdPrefixes} from './mongo';
+import {aggregateIdPrefixes, getCountBySelector} from './mongo';
 
 const toArrayMock = jest.fn();
 const aggregateMock = jest.fn(() => ({
@@ -30,5 +30,11 @@ describe('#aggregateIdPrefixes', () => {
     const idPrefixes = await aggregateIdPrefixes(dbCollection, {a: 1}, 3);
 
     expect(idPrefixes).toEqual([1, 2, 3]);
+  });
+});
+
+describe('#getCountBySelector', () => {
+  it('should export getCountBySelector function', () => {
+    expect(getCountBySelector).toBeInstanceOf(Function);
   });
 });
