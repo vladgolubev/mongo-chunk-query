@@ -12,6 +12,10 @@ export function getSelectorWithIdPrefix(selector, idPrefix) {
 }
 
 export function collapseSelectorsUpToChunkSize(selectors, chunkSize) {
+  if (selectors.length === 0) {
+    return [];
+  }
+
   if (selectors.length === 1) {
     return selectors;
   }

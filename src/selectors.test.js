@@ -21,9 +21,14 @@ describe('#collapseSelectorsUpToChunkSize', () => {
     expect(collapseSelectorsUpToChunkSize).toBeInstanceOf(Function);
   });
 
-  it('should return as it is for 1 selector', () => {
+  it('should return empty array for empty value', () => {
     const selectors = collapseSelectorsUpToChunkSize([{_id: 'a', count: 10}], 100);
     expect(selectors).toEqual([{_id: 'a', count: 10}]);
+  });
+
+  it('should return as it is for 1 selector', () => {
+    const selectors = collapseSelectorsUpToChunkSize([], 100);
+    expect(selectors).toEqual([]);
   });
 
   it('should return 2 queries collapsed if under chunk size', () => {

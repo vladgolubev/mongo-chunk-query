@@ -14,11 +14,12 @@ export async function chunkQuery(dbCollection, selector, chunkSize) {
 async function chunkChildQuery(dbCollection, selector, chunkSize, idPrefix) {
   const selectorWithIdPrefix = getSelectorWithIdPrefix(selector, idPrefix);
   const idCounts = await aggregateIdPrefixes(dbCollection, selectorWithIdPrefix, idPrefix.length);
-  const idCountsBelowChunkSize = collapseSelectorsUpToChunkSize(idCounts.filter(({count}) => count <= chunkSize), chunkSize);
+  const idCountsBelowChunkSize = idCounts.filter(({count}) => count <= chunkSize);
   const idCountsAboveChunkSize = idCounts.filter(({count}) => count > chunkSize);
+  const idCountsBelowChunkSizeCollapsed = collapseSelectorsUpToChunkSize(idCountsBelowChunkSize, chunkSize);
   const resultChunks = [];
 
-  idCountsBelowChunkSize.forEach(({_id}) => {
+  idCountsBelowChunkSizeCollapsed.forEach(({_id}) => {
     resultChunks.push(getSelectorWithIdPrefix(selector, _id));
   });
 
