@@ -1,4 +1,5 @@
 export function aggregateIdPrefixes(dbCollection, selector, prefixLength) {
+  console.log(prefixLength+1,JSON.stringify(selector));
   const pipeline = [
     {
       $match: selector

@@ -37,7 +37,7 @@ describe('initial query is big, but next returns small chunks', () => {
     const subQueries = await chunkQuery({}, {a: 1}, 100);
 
     expect(subQueries).toEqual([
-      {a: 1, _id: {$regex: '^a|^b|^c', $options: 'i'}}
+      {a: 1, _id: {$regex: '^[abc]', $options: 'i'}}
     ]);
   });
 });
@@ -109,9 +109,9 @@ describe('big set of nested queries', () => {
         {_id: 'bbk', count: 100} // ok
       ])
       .mockReturnValueOnce([ // <- bbc
-        {_id: 'bbca', count: 100}, // ok
-        {_id: 'bbcb', count: 100}, // ok
-        {_id: 'bbcc', count: 100} // ok
+        {_id: 'bbca', count: 33}, // ok
+        {_id: 'bbcb', count: 33}, // ok
+        {_id: 'bbcc', count: 33} // ok
       ])
       .mockReturnValueOnce([ // <- o
         {_id: 'ob', count: 20}, // ok
@@ -120,13 +120,11 @@ describe('big set of nested queries', () => {
     const subQueries = await chunkQuery({}, {a: 1}, 100);
 
     expect(subQueries).toEqual([
-      {a: 1, _id: {$regex: '^z|^a', $options: 'i'}},
+      {a: 1, _id: {$regex: '^[az]', $options: 'i'}},
       {a: 1, _id: {$regex: '^ba', $options: 'i'}},
-      {a: 1, _id: {$regex: '^bbca', $options: 'i'}},
-      {a: 1, _id: {$regex: '^bbcb', $options: 'i'}},
-      {a: 1, _id: {$regex: '^bbcc', $options: 'i'}},
+      {a: 1, _id: {$regex: '^[b][b][c][abc]', $options: 'i'}},
       {a: 1, _id: {$regex: '^bbk', $options: 'i'}},
-      {a: 1, _id: {$regex: '^oc|^ob', $options: 'i'}}
+      {a: 1, _id: {$regex: '^[o][bc]', $options: 'i'}}
     ]);
   });
 });

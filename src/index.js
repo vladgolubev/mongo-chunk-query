@@ -1,5 +1,5 @@
 import {aggregateIdPrefixes, getCountBySelector} from './mongo';
-import {getSelectorWithIdPrefix, collapseSelectorsUpToChunkSize} from './selectors';
+import {collapseSelectorsUpToChunkSize, getSelectorWithIdPrefix} from './selectors';
 
 export async function chunkQuery(dbCollection, selector, chunkSize) {
   const countBySelector = await getCountBySelector(dbCollection, selector);
