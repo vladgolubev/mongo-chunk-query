@@ -1,7 +1,7 @@
 {
   "name": "mongo-chunk-query",
   "version": "0.1.0",
-  "description": "Split any query for parallel processing",
+  "description": "Split any query for distributed bulk reading",
   "engines": {
     "node": "6.x.x"
   },
@@ -13,7 +13,10 @@
     "mongoexport",
     "pagination",
     "concurrent",
-    "parallel"
+    "parallel",
+    "query",
+    "subquery",
+    "distributed"
   ],
   "main": "lib/index.js",
   "author": "Vlad Holubiev",

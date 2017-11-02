@@ -10,22 +10,23 @@ $ yarn add mongo-chunk-query
 
 ## Usage
 
+Let's say you have 100 000 users in collection.
+You want to read all of them efficiently.
+
 ```js
 import {MongoClient} from 'mongodb';
 import {chunkQuery} from 'mongo-chunk-query';
 
 const db = await MongoClient.connect('...');
 
-
-// Let's say you have 100 000 users in collection
-// You want to parallelize reading of some query
-
-chunkQuery(db.collection('users'), {planet: 'Earth'}, 1000);
+const queryChunks = await chunkQuery(
+  db.collection('users'), // mongodb collection object
+  {planet: 'Earth'}, // optional selector for more specific query
+  1000 // chunk size - will split original query into subqueries
+);
 ```
 
-And now you have array of selectors split by size.
-Your original selector + addition to make it smaller.
-Since it splits by `_id` - query is fast.
+Now you have array of selectors split into chunks.
 
 ```js
 [
@@ -35,7 +36,7 @@ Since it splits by `_id` - query is fast.
 ]
 ```
 
-Now you can distribute reading of the large cursor into small workloads.
+So now it's possible to distribute these queries between different workers.
 
 ## License
 
