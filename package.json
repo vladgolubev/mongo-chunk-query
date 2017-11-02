@@ -1,6 +1,20 @@
 {
   "name": "mongo-chunk-query",
   "version": "0.1.0",
+  "description": "Split any query for parallel processing",
+  "engines": {
+    "node": "6.x.x"
+  },
+  "keywords": [
+    "mongodb",
+    "chunk",
+    "bulk",
+    "batch",
+    "mongoexport",
+    "pagination",
+    "concurrent",
+    "parallel"
+  ],
   "main": "lib/index.js",
   "author": "Vlad Holubiev",
   "license": "MIT",
