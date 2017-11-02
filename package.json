@@ -21,7 +21,6 @@
   "main": "lib/index.js",
   "author": "Vlad Holubiev",
   "license": "MIT",
-  "private": true,
   "files": [
     "lib/"
   ],
