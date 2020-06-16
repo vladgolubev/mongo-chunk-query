@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "description": "Split any query for distributed bulk reading",
   "engines": {
-    "node": "6.x.x"
+    "node": ">=6"
   },
   "keywords": [
     "mongodb",
