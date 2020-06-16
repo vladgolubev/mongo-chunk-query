@@ -38,6 +38,15 @@ Now you have array of selectors split into chunks.
 
 So now it's possible to distribute these queries between different workers.
 
+## Publish
+
+```sh
+$ git checkout master
+$ yarn version
+$ yarn publish
+$ git push origin master --tags
+```
+
 ## License
 
 MIT © [Vlad Holubiev](https://vladholubiev.com)
